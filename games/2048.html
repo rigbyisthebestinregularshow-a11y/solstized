@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>2048</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#0d0015;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;font-family:'Segoe UI',sans-serif;color:#f4b8de;gap:16px;}
+h1{font-size:36px;font-weight:300;letter-spacing:3px;}
+#scores{display:flex;gap:20px;}
+.sbox{background:rgba(120,30,110,0.3);border:1px solid rgba(255,140,210,0.2);border-radius:8px;padding:8px 20px;text-align:center;}
+.slabel{font-size:10px;letter-spacing:2px;color:rgba(255,200,240,0.4);}
+.sval{font-size:22px;color:#f4b8de;}
+#board{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;background:rgba(120,30,110,0.2);border:1px solid rgba(255,140,210,0.15);border-radius:14px;padding:12px;}
+.tile{width:90px;height:90px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:600;transition:all 0.1s;background:rgba(255,140,210,0.06);color:transparent;}
+#msg{font-size:13px;color:rgba(255,180,230,0.4);letter-spacing:1px;}
+</style>
+</head>
+<body>
+<h1>2048</h1>
+<div id="scores">
+  <div class="sbox"><div class="slabel">SCORE</div><div class="sval" id="score">0</div></div>
+  <div class="sbox"><div class="slabel">BEST</div><div class="sval" id="best">0</div></div>
+</div>
+<div id="board"></div>
+<div id="msg">arrow keys or swipe to move</div>
+<script>
+let grid,score=0,best=parseInt(localStorage.getItem('2048best')||0),moved;
+const COLORS={2:'rgba(196,79,160,0.25)',4:'rgba(196,79,160,0.4)',8:'rgba(220,60,140,0.5)',16:'rgba(230,50,120,0.6)',32:'rgba(240,80,80,0.55)',64:'rgba(255,100,50,0.6)',128:'rgba(255,180,50,0.55)',256:'rgba(255,220,40,0.6)',512:'rgba(200,255,100,0.55)',1024:'rgba(100,220,160,0.6)',2048:'rgba(50,200,255,0.7)'};
+
+function init(){
+  grid=Array.from({length:4},()=>Array(4).fill(0));
+  score=0;moved=false;
+  addTile();addTile();render();
+}
+
+function addTile(){
+  const empty=[];
+  grid.forEach((r,y)=>r.forEach((v,x)=>{if(!v)empty.push({x,y});}));
+  if(!empty.length)return;
+  const {x,y}=empty[Math.floor(Math.random()*empty.length)];
+  grid[y][x]=Math.random()<0.9?2:4;
+}
+
+function slide(row){
+  let r=row.filter(v=>v);
+  for(let i=0;i<r.length-1;i++){
+    if(r[i]===r[i+1]){r[i]*=2;score+=r[i];if(score>best){best=score;localStorage.setItem('2048best',best);}r.splice(i+1,1);}
+  }
+  while(r.length<4)r.push(0);
+  return r;
+}
+
+function move(dir){
+  let changed=false;
+  if(dir==='left') grid=grid.map(r=>{const n=slide(r);if(n.join()!==r.join())changed=true;return n;});
+  if(dir==='right') grid=grid.map(r=>{const n=slide([...r].reverse()).reverse();if(n.join()!==r.join())changed=true;return n;});
+  if(dir==='up'){
+    for(let x=0;x<4;x++){
+      const col=grid.map(r=>r[x]);const n=slide(col);
+      n.forEach((v,y)=>{if(grid[y][x]!==v)changed=true;grid[y][x]=v;});
+    }
+  }
+  if(dir==='down'){
+    for(let x=0;x<4;x++){
+      const col=grid.map(r=>r[x]).reverse();const n=slide(col).reverse();
+      n.forEach((v,y)=>{if(grid[y][x]!==v)changed=true;grid[y][x]=v;});
+    }
+  }
+  if(changed){addTile();render();}
+}
+
+function render(){
+  document.getElementById('score').textContent=score;
+  document.getElementById('best').textContent=best;
+  const b=document.getElementById('board');b.innerHTML='';
+  grid.forEach(row=>row.forEach(v=>{
+    const t=document.createElement('div');t.className='tile';
+    if(v){
+      t.textContent=v;
+      t.style.background=COLORS[v]||'rgba(255,255,255,0.2)';
+      t.style.color='#fff';
+      t.style.fontSize=v>=1024?'20px':v>=100?'24px':'28px';
+      t.style.boxShadow=`0 0 20px ${COLORS[v]||'rgba(255,255,255,0.1)'}`;
+    }
+    b.appendChild(t);
+  }));
+  if(!canMove()) document.getElementById('msg').textContent='no more moves — press R to restart';
+}
+
+function canMove(){
+  for(let y=0;y<4;y++) for(let x=0;x<4;x++){
+    if(!grid[y][x])return true;
+    if(x<3&&grid[y][x]===grid[y][x+1])return true;
+    if(y<3&&grid[y][x]===grid[y+1][x])return true;
+  }
+  return false;
+}
+
+document.addEventListener('keydown',e=>{
+  if(e.key==='r'||e.key==='R'){init();return;}
+  const map={ArrowLeft:'left',ArrowRight:'right',ArrowUp:'up',ArrowDown:'down'};
+  if(map[e.key]){e.preventDefault();move(map[e.key]);}
+});
+
+let tx,ty;
+document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;ty=e.touches[0].clientY;},{passive:true});
+document.addEventListener('touchend',e=>{
+  const dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;
+  if(Math.abs(dx)>Math.abs(dy)){move(dx>0?'right':'left');}
+  else{move(dy>0?'down':'up');}
+},{passive:true});
+
+init();
+</script>
+</body>
+</html>

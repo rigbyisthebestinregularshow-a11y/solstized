@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Pong</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#0d0015;display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;font-family:'Segoe UI',sans-serif;color:#f4b8de;}
+canvas{border:1px solid rgba(255,140,210,0.2);border-radius:8px;}
+#msg{margin-top:12px;font-size:13px;color:rgba(255,180,230,0.4);letter-spacing:1px;}
+</style>
+</head>
+<body>
+<canvas id="c" width="600" height="400"></canvas>
+<div id="msg">W/S — left paddle &nbsp;|&nbsp; ↑/↓ — right paddle &nbsp;|&nbsp; space to start</div>
+<script>
+const c=document.getElementById('c'),ctx=c.getContext('2d');
+const W=600,H=400,PAD_W=10,PAD_H=70,BALL=8,SPEED=4;
+let lp,rp,ball,ls,rs,running=false,keys={};
+
+function init(){
+  lp={x:20,y:H/2-PAD_H/2,vy:0};
+  rp={x:W-20-PAD_W,y:H/2-PAD_H/2,vy:0};
+  resetBall();ls=0;rs=0;
+}
+
+function resetBall(){
+  ball={x:W/2,y:H/2,vx:(Math.random()<0.5?1:-1)*SPEED,vy:(Math.random()-0.5)*4};
+}
+
+function tick(){
+  if(!running)return;
+  // paddles
+  if(keys['w']||keys['W'])lp.y-=5;
+  if(keys['s']||keys['S'])lp.y+=5;
+  if(keys['ArrowUp'])rp.y-=5;
+  if(keys['ArrowDown'])rp.y+=5;
+  lp.y=Math.max(0,Math.min(H-PAD_H,lp.y));
+  rp.y=Math.max(0,Math.min(H-PAD_H,rp.y));
+  // ball
+  ball.x+=ball.vx;ball.y+=ball.vy;
+  if(ball.y<=BALL||ball.y>=H-BALL)ball.vy*=-1;
+  // left paddle
+  if(ball.x-BALL<lp.x+PAD_W&&ball.y>lp.y&&ball.y<lp.y+PAD_H&&ball.vx<0){
+    ball.vx=Math.abs(ball.vx)*1.05;ball.vy=(ball.y-(lp.y+PAD_H/2))*0.2;
+  }
+  // right paddle
+  if(ball.x+BALL>rp.x&&ball.y>rp.y&&ball.y<rp.y+PAD_H&&ball.vx>0){
+    ball.vx=-Math.abs(ball.vx)*1.05;ball.vy=(ball.y-(rp.y+PAD_H/2))*0.2;
+  }
+  // score
+  if(ball.x<0){rs++;resetBall();}
+  if(ball.x>W){ls++;resetBall();}
+  // clamp speed
+  const spd=Math.sqrt(ball.vx**2+ball.vy**2);
+  if(spd>14){ball.vx=ball.vx/spd*14;ball.vy=ball.vy/spd*14;}
+}
+
+function draw(){
+  ctx.fillStyle='#0a0010';ctx.fillRect(0,0,W,H);
+  // center line
+  ctx.setLineDash([8,8]);ctx.strokeStyle='rgba(255,140,210,0.15)';ctx.lineWidth=1;
+  ctx.beginPath();ctx.moveTo(W/2,0);ctx.lineTo(W/2,H);ctx.stroke();ctx.setLineDash([]);
+  // scores
+  ctx.fillStyle='rgba(244,184,222,0.5)';ctx.font='48px Segoe UI';ctx.textAlign='center';
+  ctx.fillText(ls,W/4,60);ctx.fillText(rs,3*W/4,60);
+  // paddles
+  [lp,rp].forEach(p=>{
+    ctx.fillStyle='#c44fa0';ctx.shadowColor='#c44fa0';ctx.shadowBlur=15;
+    ctx.beginPath();ctx.roundRect(p.x,p.y,PAD_W,PAD_H,4);ctx.fill();
+    ctx.shadowBlur=0;
+  });
+  // ball
+  ctx.fillStyle='#f4b8de';ctx.shadowColor='#f4b8de';ctx.shadowBlur=20;
+  ctx.beginPath();ctx.arc(ball.x,ball.y,BALL,0,Math.PI*2);ctx.fill();
+  ctx.shadowBlur=0;
+  if(!running){
+    ctx.fillStyle='rgba(244,184,222,0.7)';ctx.font='18px Segoe UI';ctx.textAlign='center';
+    ctx.fillText('press space to start',W/2,H/2+60);
+  }
+}
+
+function loop(){tick();draw();requestAnimationFrame(loop);}
+
+document.addEventListener('keydown',e=>{
+  keys[e.key]=true;
+  if(e.code==='Space'){e.preventDefault();running=true;}
+});
+document.addEventListener('keyup',e=>{keys[e.key]=false;});
+
+init();loop();
+</script>
+</body>
+</html>

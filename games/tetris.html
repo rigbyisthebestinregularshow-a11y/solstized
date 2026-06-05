@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Tetris</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#0d0015;display:flex;align-items:center;justify-content:center;height:100vh;font-family:'Segoe UI',sans-serif;color:#f4b8de;gap:24px;}
+canvas{border:1px solid rgba(255,140,210,0.3);border-radius:8px;background:#0a0010;}
+#info{display:flex;flex-direction:column;gap:16px;min-width:100px;}
+.label{font-size:11px;color:rgba(255,180,230,0.4);letter-spacing:2px;text-transform:uppercase;}
+.val{font-size:28px;font-weight:300;color:#f4b8de;}
+#msg{font-size:12px;color:rgba(255,180,230,0.4);line-height:1.8;}
+</style>
+</head>
+<body>
+<canvas id="c" width="200" height="400"></canvas>
+<div id="info">
+  <div><div class="label">score</div><div class="val" id="score">0</div></div>
+  <div><div class="label">level</div><div class="val" id="level">1</div></div>
+  <div><div class="label">lines</div><div class="val" id="lines">0</div></div>
+  <div id="msg">← → move<br>↑ rotate<br>↓ soft drop<br>space hard drop</div>
+</div>
+<script>
+const COLS=10,ROWS=20,CELL=20;
+const c=document.getElementById('c'),ctx=c.getContext('2d');
+const PIECES=[
+  [[1,1,1,1]],
+  [[1,1],[1,1]],
+  [[0,1,0],[1,1,1]],
+  [[1,0,0],[1,1,1]],
+  [[0,0,1],[1,1,1]],
+  [[0,1,1],[1,1,0]],
+  [[1,1,0],[0,1,1]],
+];
+const COLORS=['#00f5ff','#ffe600','#c44fa0','#ff7700','#1a7abf','#3aaa66','#cc2255'];
+
+let board,piece,px,py,score,lines,level,alive,timer;
+
+function init(){
+  board=Array.from({length:ROWS},()=>Array(COLS).fill(0));
+  score=0;lines=0;level=1;alive=true;
+  spawn(); clearInterval(timer); drop();
+  update();
+}
+
+function spawn(){
+  const i=Math.floor(Math.random()*PIECES.length);
+  piece={shape:PIECES[i],color:COLORS[i]};
+  px=Math.floor(COLS/2)-Math.ceil(piece.shape[0].length/2);
+  py=0;
+  if(collide(px,py,piece.shape)){alive=false;clearInterval(timer);document.getElementById('msg').textContent='game over\nspace to restart';}
+}
+
+function drop(){
+  const speed=Math.max(100,600-level*50);
+  clearInterval(timer);
+  timer=setInterval(()=>{if(!move(0,1)){lock();clearLines();spawn();}draw();},speed);
+}
+
+function move(dx,dy){
+  if(!collide(px+dx,py+dy,piece.shape)){px+=dx;py+=dy;return true;}
+  return false;
+}
+
+function rotate(){
+  const r=piece.shape[0].map((_,i)=>piece.shape.map(row=>row[i]).reverse());
+  if(!collide(px,py,r))piece.shape=r;
+}
+
+function hardDrop(){while(move(0,1));lock();clearLines();spawn();draw();}
+
+function collide(x,y,shape){
+  return shape.some((row,dy)=>row.some((v,dx)=>v&&(y+dy>=ROWS||x+dx<0||x+dx>=COLS||board[y+dy]?.[x+dx])));
+}
+
+function lock(){
+  piece.shape.forEach((row,dy)=>row.forEach((v,dx)=>{if(v)board[py+dy][px+dx]=piece.color;}));
+}
+
+function clearLines(){
+  let cleared=0;
+  for(let y=ROWS-1;y>=0;){
+    if(board[y].every(v=>v)){board.splice(y,1);board.unshift(Array(COLS).fill(0));cleared++;}
+    else y--;
+  }
+  if(cleared){
+    const pts=[0,100,300,500,800];
+    score+=pts[cleared]*level;lines+=cleared;
+    level=Math.floor(lines/10)+1;
+    update();drop();
+  }
+}
+
+function update(){
+  document.getElementById('score').textContent=score;
+  document.getElementById('level').textContent=level;
+  document.getElementById('lines').textContent=lines;
+}
+
+function draw(){
+  ctx.fillStyle='#0a0010';ctx.fillRect(0,0,c.width,c.height);
+  // board
+  board.forEach((row,y)=>row.forEach((v,x)=>{
+    if(v){ctx.fillStyle=v;ctx.fillRect(x*CELL+1,y*CELL+1,CELL-2,CELL-2);}
+    else{ctx.fillStyle='rgba(255,140,210,0.04)';ctx.fillRect(x*CELL,y*CELL,CELL,CELL);}
+  }));
+  // piece
+  piece.shape.forEach((row,dy)=>row.forEach((v,dx)=>{
+    if(v){ctx.fillStyle=piece.color;ctx.shadowColor=piece.color;ctx.shadowBlur=8;
+    ctx.fillRect((px+dx)*CELL+1,(py+dy)*CELL+1,CELL-2,CELL-2);ctx.shadowBlur=0;}
+  }));
+  // ghost
+  let gy=py;while(!collide(px,gy+1,piece.shape))gy++;
+  piece.shape.forEach((row,dy)=>row.forEach((v,dx)=>{
+    if(v){ctx.strokeStyle='rgba(255,140,210,0.2)';ctx.strokeRect((px+dx)*CELL+1,(gy+dy)*CELL+1,CELL-2,CELL-2);}
+  }));
+}
+
+document.addEventListener('keydown',e=>{
+  if(!alive&&e.code==='Space'){init();return;}
+  if(!alive)return;
+  if(e.key==='ArrowLeft')move(-1,0);
+  else if(e.key==='ArrowRight')move(1,0);
+  else if(e.key==='ArrowDown')move(0,1);
+  else if(e.key==='ArrowUp')rotate();
+  else if(e.code==='Space'){e.preventDefault();hardDrop();}
+  draw();
+});
+
+init();draw();
+</script>
+</body>
+</html>
