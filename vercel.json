@@ -1,0 +1,29 @@
+{
+  "buildCommand": "echo 'Static site'",
+  "outputDirectory": ".",
+  "rewrites": [
+    {
+      "source": "/service/(.*)",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/uv/(.*)",
+      "destination": "/uv/$1"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/uv/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600"
+        },
+        {
+          "key": "Service-Worker-Allowed",
+          "value": "/"
+        }
+      ]
+    }
+  ]
+}
