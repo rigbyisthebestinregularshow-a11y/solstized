@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Games | Solstized</title>
+  <link rel="shortcut icon" href="/images/ico.ico" type="image/x-icon">
+  <style>
+    :root { color-scheme: dark; background: #130615; color: #f8f0ff; }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: radial-gradient(circle at top, rgba(196,79,160,0.25), transparent 28%), #130615; }
+    .page { width: min(1200px, 96vw); margin: 0 auto; padding: 28px 16px 48px; }
+    h1 { margin: 0 0 12px; font-size: clamp(2.6rem, 5vw, 4rem); letter-spacing: -0.03em; }
+    .top-links { margin-bottom: 22px; color: rgba(248,240,255,0.72); font-size: 0.95rem; line-height: 1.85; }
+    .top-links a { color: #f9c6ed; text-decoration: none; transition: color 0.2s; }
+    .top-links a:hover { color: #ffffff; }
+    .controls { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-bottom: 24px; }
+    .controls input, .controls select { flex: 1 1 220px; min-width: 180px; border: 1px solid rgba(255,255,255,0.14); border-radius: 999px; background: rgba(255,255,255,0.05); color: #fff; padding: 12px 16px; font-size: 0.95rem; outline: none; }
+    .controls input::placeholder { color: rgba(255,255,255,0.55); }
+    .button-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+    .button-container a { text-decoration: none; color: inherit; }
+    .button { position: relative; min-height: 170px; display: flex; flex-direction: column; justify-content: flex-end; padding: 18px; border-radius: 24px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); background-size: cover; background-position: center; box-shadow: 0 14px 40px rgba(0,0,0,0.24); transition: transform 0.25s ease, border-color 0.25s ease; }
+    .button::before { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(13,5,25,0.12), rgba(10,4,21,0.88)); }
+    .button h2, .button p { position: relative; z-index: 1; margin: 0; }
+    .button h2 { font-size: 1.05rem; text-transform: capitalize; letter-spacing: 0.01em; }
+    .button p { margin-top: 8px; color: rgba(255,255,255,0.82); font-size: 0.92rem; line-height: 1.4; }
+    .button:hover { transform: translateY(-4px); border-color: rgba(244,184,222,0.35); }
+    .button.hidden { display: none !important; }
+    .note { margin-top: 28px; color: rgba(255,255,255,0.55); font-size: 0.92rem; }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <h1>Games</h1>
+    <div class="top-links">
+      <a href="/index.html">Homepage</a> •
+      <a href="/apps/index.html">Apps</a> •
+      <a href="https://discord.gg/XAYc8C2Tgg" target="_blank" rel="noreferrer noopener">Discord</a>
+    </div>
+    <div class="controls">
+      <input id="search" type="text" placeholder="Search games…" autocomplete="off">
+      <select id="genreDropdown">
+        <option value="all">all genres</option>
+        <option value="arcade">arcade</option>
+        <option value="adventure">adventure</option>
+        <option value="platformer">platformer</option>
+        <option value="simulation">simulation</option>
+        <option value="puzzle">puzzle</option>
+        <option value="mobile">mobile friendly</option>
+        <option value="sports">sports</option>
+        <option value="multiplayer">multiplayer</option>
+        <option value="rhythm">rhythm</option>
+        <option value="strategy">strategy</option>
+        <option value="horror">horror</option>
+        <option value="sandbox">sandbox</option>
+        <option value="rpg">rpg</option>
+        <option value="idle">idle</option>
+      </select>
+    </div>
+    <div class="button-container">
+      <a target="_blank" href="slope/index.html">
+        <div class="button" style="background-image: url('../images/thumbnails/slope.jpg');" data-genre="platformer">
+          <h2>slope</h2>
+          <p>fast-paced rolling action in an endless slope runner.</p>
+        </div>
+      </a>
+      <a target="_blank" href="subwaysurfers/index.html">
+        <div class="button" style="background-image: url('../images/thumbnails/subwaysurfers.jpeg');" data-genre="platformer">
+          <h2>subway surfers</h2>
+          <p>dash through colorful trains while dodging obstacles.</p>
+        </div>
+      </a>
+      <a target="_blank" href="flappy/index.html">
+        <div class="button" style="background-image: url('../images/thumbnails/flappybird.jpg');" data-genre="mobile">
+          <h2>flappy bird</h2>
+          <p>a simple but challenging one-tap flyer.</p>
+        </div>
+      </a>
+      <a target="_blank" href="papaspizzaria/index.html">
+        <div class="button" style="background-image: url('../images/thumbnails/papaspizzeria.jpg');" data-genre="simulation">
+          <h2>papa's pizzaria</h2>
+          <p>manage orders and build up the perfect pizzeria.</p>
+        </div>
+      </a>
+      <a target="_blank" href="papasburgeria/index.html">
+        <div class="button" style="background-image: url('../images/thumbnails/papasburgeria.jpg');" data-genre="simulation">
+          <h2>papa's burgeria</h2>
+          <p>run a burger joint with fast-paced cooking gameplay.</p>
+        </div>
+      </a>
+      <a target="_blank" href="sm64/index.html">
+        <div class="button" style="background-image: url('../images/thumbnails/sm64.jpg');" data-genre="platformer">
+          <h2>super mario 64</h2>
+          <p>classic 3D platforming in a beloved Nintendo world.</p>
+        </div>
+      </a>
+      <a target="_blank" href="run3/index.html">
+        <div class="button" style="background-image: url('../images/thumbnails/run3.jpg');" data-genre="platformer">
+          <h2>run 3</h2>
+          <p>navigate a runner through rotating tunnels and gaps.</p>
+        </div>
+      </a>
+      <a target="_blank" href="bitlife/index.html">
+        <div class="button" style="background-image: url('../images/thumbnails/bitlife.jpg');" data-genre="simulation">
+          <h2>bitlife</h2>
+          <p>simulate a full life with choices that matter.</p>
+        </div>
+      </a>
+      <a target="_blank" href="crossy/index.html">
+        <div class="button" style="background-image: url('../images/thumbnails/crossyroad.jpg');" data-genre="mobile">
+          <h2>crossy road</h2>
+          <p>jump across traffic, trains, and rivers in this endless runner.</p>
+        </div>
+      </a>
+      <a target="_blank" href="mc/index.html">
+        <div class="button" style="background-image: url('../images/thumbnails/mc.jpg');" data-genre="sandbox">
+          <h2>minecraft [v1.5.2]</h2>
+          <p>classic browser Minecraft experience.</p>
+        </div>
+      </a>
+      <a target="_blank" href="cookieclicker/index.html">
+        <div class="button" style="background-image: url('../images/thumbnails/cookieclick.jpg');" data-genre="arcade">
+          <h2>cookie clicker</h2>
+          <p>an idle clicker for building a massive cookie empire.</p>
+        </div>
+      </a>
+      <a target="_blank" href="templerun2/index.html">
+        <div class="button" style="background-image: url('../images/thumbnails/templerun2.jpg');" data-genre="platformer">
+          <h2>temple run 2</h2>
+          <p>escape a chasing monster through obstacles.</p>
+        </div>
+      </a>
+      <a target="_blank" href="ducklife4/index.html">
+        <div class="button" style="background-image: url('../images/thumbnails/ducklife4.jpg');" data-genre="simulation">
+          <h2>duck life 4</h2>
+          <p>train your duck and dominate the racing league.</p>
+        </div>
+      </a>
+      <a target="_blank" href="dinogame/index.html">
+        <div class="button" style="background-image: url('../images/thumbnails/chromedino.jpg');" data-genre="arcade">
+          <h2>chrome dino game</h2>
+          <p>jump over obstacles in this idle browser classic.</p>
+        </div>
+      </a>
+      <a target="_blank" href="jetpackjoyride/index.html">
+        <div class="button" style="background-image: url('../images/thumbnails/jetpackjoyride.jpg');" data-genre="arcade">
+          <h2>jetpack joyride</h2>
+          <p>fly through lasers and collect coins in a jetpack rush.</p>
+        </div>
+      </a>
+      <a target="_blank" href="retrobowl/index.html">
+        <div class="button" style="background-image: url('../images/thumbnails/retrobowl.jpg');" data-genre="sports">
+          <h2>retro bowl</h2>
+          <p>manage a retro football team and win championships.</p>
+        </div>
+      </a>
+      <a target="_blank" href="fruitninja/index.html">
+        <div class="button" style="background-image: url('../images/thumbnails/fruitninja.jpg');" data-genre="arcade">
+          <h2>fruit ninja</h2>
+          <p>slice fruit and avoid bombs in this quick action game.</p>
+        </div>
+      </a>
+      <a target="_blank" href="doodlejump/index.html">
+        <div class="button" style="background-image: url('../images/thumbnails/doodlejump.jpg');" data-genre="platformer">
+          <h2>doodle jump</h2>
+          <p>bounce upward through platforms and reach new heights.</p>
+        </div>
+      </a>
+      <a target="_blank" href="2048/index.html">
+        <div class="button" style="background-image: url('../images/thumbnails/2048.jpg');" data-genre="puzzle">
+          <h2>2048</h2>
+          <p>slide tiles to create the 2048 tile before the board fills.</p>
+        </div>
+      </a>
+      <a target="_blank" href="tetris/index.html">
+        <div class="button" style="background-image: url('../images/thumbnails/tetris.jpg');" data-genre="puzzle">
+          <h2>tetris</h2>
+          <p>classic tile-matching action with fast puzzle gameplay.</p>
+        </div>
+      </a>
+      <a target="_blank" href="fancypantsadventure/index.html">
+        <div class="button" style="background-image: url('../images/thumbnails/fancypantsadventure.jpg');" data-genre="platformer">
+          <h2>fancy pants adventure</h2>
+          <p>stylish platformer with fluid animation and fast controls.</p>
+        </div>
+      </a>
+      <a target="_blank" href="happywheels/index.html">
+        <div class="button" style="background-image: url('../images/thumbnails/happywheels.jpg');" data-genre="action">
+          <h2>happy wheels</h2>
+          <p>ridiculously violent obstacle course gameplay.</p>
+        </div>
+      </a>
+      <a target="_blank" href="papashotdoggeria/index.html">
+        <div class="button" style="background-image: url('../images/thumbnails/papashotdoggeria.jpg');" data-genre="simulation">
+          <h2>papa's hotdoggeria</h2>
+          <p>serve hot dogs and manage your street food stand.</p>
+        </div>
+      </a>
+      <a target="_blank" href="paperio2/index.html">
+        <div class="button" style="background-image: url('../images/thumbnails/paperio2.jpg');" data-genre="arcade">
+          <h2>paperio2</h2>
+          <p>territory capture with fast competitive arcade action.</p>
+        </div>
+      </a>
+      <a target="_blank" href="superhot/index.html">
+        <div class="button" style="background-image: url('../images/thumbnails/superhot.jpg');" data-genre="adventure">
+          <h2>super hot</h2>
+          <p>time moves only when you move in this unique shooter.</p>
+        </div>
+      </a>
+      <a target="_blank" href="thebindingofisaac/index.html">
+        <div class="button" style="background-image: url('../images/thumbnails/thebindingofisaac.jpg');" data-genre="adventure">
+          <h2>the binding of isaac</h2>
+          <p>roguelike dungeon crawler with hundreds of item combos.</p>
+        </div>
+      </a>
+      <a target="_blank" href="tunnelrush/index.html">
+        <div class="button" style="background-image: url('../images/thumbnails/tunnelrush.jpg');" data-genre="arcade">
+          <h2>tunnel rush</h2>
+          <p>avoiding obstacles in a neon tunnel at high speed.</p>
+        </div>
+      </a>
+      <a target="_blank" href="run/index.html">
+        <div class="button" style="background-image: url('../images/thumbnails/run.jpg');" data-genre="platformer">
+          <h2>run</h2>
+          <p>jump from platform to platform in a challenging runner.</p>
+        </div>
+      </a>
+      <a target="_blank" href="run2/index.html">
+        <div class="button" style="background-image: url('../images/thumbnails/run2.jpg');" data-genre="platformer">
+          <h2>run 2</h2>
+          <p>fast-paced ice skating runner with gravity-bending levels.</p>
+        </div>
+      </a>
+      <a target="_blank" href="ducklife/index.html">
+        <div class="button" style="background-image: url('../images/thumbnails/ducklife.jpg');" data-genre="simulation">
+          <h2>duck life</h2>
+          <p>train your duck and race it to victory.</p>
+        </div>
+      </a>
+      <a target="_blank" href="ducklife2/index.html">
+        <div class="button" style="background-image: url('../images/thumbnails/ducklife2.jpg');" data-genre="simulation">
+          <h2>duck life 2</h2>
+          <p>level up your duck with new training minigames.</p>
+        </div>
+      </a>
+      <a target="_blank" href="ducklife3/index.html">
+        <div class="button" style="background-image: url('../images/thumbnails/ducklife3.jpg');" data-genre="simulation">
+          <h2>duck life 3</h2>
+          <p>keep training and compete in tougher races.</p>
+        </div>
+      </a>
+      <a target="_blank" href="mariokartsupercircuit/index.html">
+        <div class="button" style="background-image: url('../images/thumbnails/mariokartsupercircuit.jpg');" data-genre="arcade">
+          <h2>mario kart super circuit</h2>
+          <p>classic kart racing with a retro handheld style.</p>
+        </div>
+      </a>
+      <a target="_blank" href="pokemonleafgreen/index.html">
+        <div class="button" style="background-image: url('../images/thumbnails/pokemonleafgreen.jpg');" data-genre="adventure">
+          <h2>pokemon leaf green</h2>
+          <p>explore and battle Pokémon in a classic RPG adventure.</p>
+        </div>
+      </a>
+      <a target="_blank" href="pokemonruby/index.html">
+        <div class="button" style="background-image: url('../images/thumbnails/pokemonruby.jpg');" data-genre="adventure">
+          <h2>pokemon ruby</h2>
+          <p>challenge Gym Leaders and become Pokémon Champion.</p>
+        </div>
+      </a>
+      <a target="_blank" href="pokemonsapphire/index.html">
+        <div class="button" style="background-image: url('../images/thumbnails/pokemonsapphire.jpg');" data-genre="adventure">
+          <h2>pokemon sapphire</h2>
+          <p>train Pokémon and uncover the secrets of Hoenn.</p>
+        </div>
+      </a>
+    </div>
+    <p class="note">All games playable on this website are complete copyright & property of their respective owners.</p>
+  </main>
+  <script>
+    const cards = Array.from(document.querySelectorAll('.button-container a'));
+    const searchInput = document.getElementById('search');
+    const genreDropdown = document.getElementById('genreDropdown');
+    function filterGames() {
+      const query = searchInput.value.trim().toLowerCase();
+      const genre = genreDropdown.value;
+      cards.forEach(link => {
+        const button = link.querySelector('.button');
+        const title = (link.querySelector('h2')?.textContent || '').toLowerCase();
+        const desc = (link.querySelector('p')?.textContent || '').toLowerCase();
+        const matchesQuery = !query || title.includes(query) || desc.includes(query);
+        const matchesGenre = genre === 'all' || button.dataset.genre === genre;
+        link.classList.toggle('hidden', !(matchesQuery && matchesGenre));
+      });
+    }
+    searchInput.addEventListener('input', filterGames);
+    genreDropdown.addEventListener('change', filterGames);
+    filterGames();
+  </script>
+</body>
+</html>

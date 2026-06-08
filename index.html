@@ -8,10 +8,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
 <!-- Firebase -->
-<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
-<script src="/uv/uv.client.js"></script>
-<script src="/uv/uv-setup.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js" defer></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js" defer></script>
+<script src="/uv/uv.client.js" defer></script>
+<script src="/uv/uv-setup.js" defer></script>
 <script>
   window.addEventListener('load', () => {
     if (window.ultraviolet && typeof window.ultraviolet.register === 'function') {
@@ -86,30 +86,29 @@ canvas { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
 .app-new-tab-badge { font-family: 'DM Sans', sans-serif; font-size: 10px; color: rgba(255,140,210,0.4); letter-spacing: 0.5px; }
 .apps-no-results { position: relative; z-index: 20; text-align: center; padding: 60px 20px; font-family: 'DM Sans', sans-serif; font-size: 15px; color: rgba(255,200,240,0.3); }
 
-/* ── PROXY BAR ── */
+/* ── PROXY BAR (homepage pill style) ── */
 .proxy-bar-wrap {
-  position: relative; z-index: 20; width: min(700px, 94vw); margin-bottom: 32px;
-  background: rgba(80,15,70,0.5); border: 1px solid rgba(255,140,210,0.18);
-  border-radius: 16px; padding: 18px 22px;
+  position: relative; z-index: 20; width: min(620px, 94vw); margin-bottom: 24px;
+  display: flex; align-items: center; gap: 12px; padding: 10px 16px;
+  background: rgba(70,15,70,0.55); border: 1px solid rgba(255,140,210,0.18);
+  border-radius: 999px; box-shadow: 0 18px 50px rgba(0,0,0,0.12);
 }
-.proxy-bar-label { font-family: 'DM Sans', sans-serif; font-size: 11px; letter-spacing: 2px; color: rgba(255,200,240,0.35); margin-bottom: 10px; text-transform: uppercase; }
-.proxy-bar-row { display: flex; gap: 10px; }
+.proxy-search-icon { position: absolute; left: 22px; top: 50%; transform: translateY(-50%); color: rgba(255,180,235,0.7); font-size: 18px; pointer-events: none; }
 .proxy-input {
-  flex: 1; padding: 11px 16px;
-  background: rgba(180,60,160,0.15); border: 1px solid rgba(255,140,210,0.2);
-  border-radius: 8px; color: rgba(255,210,245,0.85);
-  font-family: 'DM Sans', sans-serif; font-size: 13px; outline: none;
-  transition: border-color 0.2s;
+  flex: 1; min-width: 0; padding: 14px 18px 14px 48px;
+  background: rgba(255,255,255,0.04); border: none; color: rgba(255,235,255,0.95);
+  border-radius: 999px; font-family: 'DM Sans', sans-serif; font-size: 14px; outline: none;
+  transition: box-shadow 0.18s, background 0.18s;
 }
-.proxy-input::placeholder { color: rgba(255,180,235,0.3); }
-.proxy-input:focus { border-color: rgba(255,140,210,0.5); }
+.proxy-input::placeholder { color: rgba(255,190,230,0.45); }
+.proxy-input:focus { box-shadow: 0 0 0 1px rgba(255,140,210,0.35); background: rgba(255,255,255,0.12); }
 .proxy-go-btn {
-  padding: 11px 22px; background: rgba(196,79,160,0.3);
-  border: 1px solid rgba(255,140,210,0.4); border-radius: 8px;
-  color: var(--pink-light); font-family: 'DM Sans', sans-serif;
-  font-size: 13px; cursor: pointer; transition: all 0.2s; white-space: nowrap;
+  padding: 12px 26px; border: none; border-radius: 999px;
+  background: linear-gradient(135deg, #ff5ec8, #9a48ff);
+  color: #fff; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight:700;
+  cursor: pointer; transition: transform 0.18s, box-shadow 0.18s;
 }
-.proxy-go-btn:hover { background: rgba(196,79,160,0.5); }
+.proxy-go-btn:hover { transform: translateY(-1px); box-shadow: 0 12px 24px rgba(255,100,220,0.22); }
 
 /* ── HOME ── */
 #page-home { z-index: 10; }
@@ -120,6 +119,29 @@ canvas { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
   text-shadow: 0 0 60px rgba(244,100,200,0.5); margin-bottom: 8px;
 }
 .tagline { font-family: 'DM Sans', sans-serif; font-size: 13px; color: rgba(255,200,235,0.5); letter-spacing: 4px; margin-bottom: 36px; }
+.home-search-wrap {
+  position: relative; width: min(700px, 92vw); margin: 0 auto; display: flex; align-items: center; gap: 12px;
+  padding: 12px 14px; background: rgba(18,6,32,0.75);
+  border: 1px solid rgba(255,140,210,0.2); border-radius: 999px;
+  box-shadow: 0 18px 45px rgba(0,0,0,0.18);
+}
+.home-search-input {
+  width: 100%; padding: 16px 18px 16px 50px; border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.14); background: rgba(255,255,255,0.07);
+  color: #fff; font-family: 'DM Sans', sans-serif; font-size: 15px; outline: none;
+}
+.home-search-input::placeholder { color: rgba(255,255,255,0.55); }
+.home-search-icon {
+  position: absolute; left: 18px; top: 50%; transform: translateY(-50%);
+  color: rgba(255,255,255,0.75); font-size: 18px;
+}
+.home-search-btn {
+  padding: 14px 24px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.18);
+  background: linear-gradient(135deg, #ff5ec8, #9a48ff); color: #fff;
+  font-family: 'DM Sans', sans-serif; font-size: 14px; cursor: pointer;
+  transition: transform 0.18s, box-shadow 0.18s;
+}
+.home-search-btn:hover { transform: translateY(-1px); box-shadow: 0 12px 28px rgba(255,100,220,0.28); }
 .icon-links { display: flex; gap: 24px; align-items: center; }
 .icon-btn {
   width: 52px; height: 52px; border-radius: 50%;
@@ -187,55 +209,71 @@ canvas { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
 #page-games { z-index: 10; justify-content: flex-start; overflow-y: auto; padding-top: 60px; padding-bottom: 60px; }
 .games-title { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-style: italic; font-size: 40px; color: var(--pink-light); text-shadow: 0 0 40px rgba(244,100,200,0.4); text-align: center; margin-bottom: 12px; letter-spacing: 1px; position: relative; z-index: 20; }
 .games-title span { font-size: 13px; font-family: 'DM Sans', sans-serif; color: rgba(255,200,240,0.4); display: block; letter-spacing: 3px; margin-top: 4px; font-style: normal; }
-.games-search-wrap { position: relative; z-index: 20; width: min(500px,90vw); margin: 0 auto 32px; }
-.games-search {
-  width: 100%; padding: 12px 20px 12px 42px;
-  background: rgba(180,60,160,0.15); border: 1px solid rgba(255,140,210,0.2);
-  border-radius: 30px; color: rgba(255,210,245,0.8);
-  font-family: 'DM Sans', sans-serif; font-size: 14px; outline: none;
-  transition: border-color 0.2s, background 0.2s;
+.games-search-wrap {
+  position: relative; z-index: 20; width: min(620px,90vw); margin: 0 auto 32px;
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 16px; background: rgba(70,15,70,0.55);
+  border: 1px solid rgba(255,140,210,0.18); border-radius: 999px;
+  box-shadow: 0 18px 50px rgba(0,0,0,0.15);
 }
-.games-search::placeholder { color: rgba(255,180,235,0.35); }
-.games-search:focus { border-color: rgba(255,140,210,0.5); background: rgba(196,79,160,0.2); }
-.games-search-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: rgba(255,140,210,0.4); font-size: 16px; pointer-events: none; }
+.games-search {
+  flex: 1; min-width: 0; padding: 14px 18px 14px 42px;
+  background: rgba(255,255,255,0.06); border: none;
+  color: rgba(255,235,255,0.95); border-radius: 999px;
+  font-family: 'DM Sans', sans-serif; font-size: 14px; outline: none;
+  transition: box-shadow 0.2s, background 0.2s;
+}
+.games-search::placeholder { color: rgba(255,190,230,0.45); }
+.games-search:focus { box-shadow: 0 0 0 1px rgba(255,140,210,0.35); background: rgba(255,255,255,0.12); }
+.games-search-icon { position: absolute; left: 24px; top: 50%; transform: translateY(-50%); color: rgba(255,180,235,0.7); font-size: 18px; pointer-events: none; }
+.games-search-btn {
+  padding: 12px 26px; border: none; border-radius: 999px;
+  background: linear-gradient(135deg, #ff5ec8, #9a48ff);
+  color: #fff; font-family: 'DM Sans', sans-serif; font-size: 13px;
+  font-weight: 700; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;
+}
+.games-search-btn:hover { transform: translateY(-1px); box-shadow: 0 12px 24px rgba(255,100,220,0.25); }
 .games-grid {
   position: relative; z-index: 20;
-  display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-  gap: 12px; width: min(1060px, 96vw);
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 16px; width: min(1080px, 96vw);
 }
 .game-card {
-  background: rgba(20,5,25,0.7); border: 1px solid rgba(255,140,210,0.12);
-  border-radius: 14px; overflow: hidden; cursor: pointer;
-  transition: transform 0.18s, border-color 0.18s, box-shadow 0.18s;
-  display: flex; flex-direction: column;
+  background: linear-gradient(180deg, rgba(20,6,30,0.92), rgba(12,3,22,0.98));
+  border: 1px solid rgba(255,140,210,0.12);
+  border-radius: 24px; overflow: hidden; cursor: pointer;
+  transition: transform 0.24s ease, border-color 0.24s ease, box-shadow 0.24s ease;
+  display: flex; flex-direction: column; min-height: 100%;
 }
 .game-card:hover {
-  transform: translateY(-4px) scale(1.02);
-  border-color: rgba(255,140,210,0.5);
-  box-shadow: 0 10px 28px rgba(0,0,0,0.5);
+  transform: translateY(-7px) scale(1.01);
+  border-color: rgba(255,140,210,0.3);
+  box-shadow: 0 20px 46px rgba(96,10,100,0.26);
 }
 .game-thumb {
   width: 100%; aspect-ratio: 1/1;
-  background: rgba(40,10,50,0.8);
+  background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(30,8,60,0.92));
   display: flex; align-items: center; justify-content: center;
-  font-size: 44px; color: rgba(255,140,210,0.3);
   overflow: hidden; position: relative;
 }
-.game-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.game-thumb-icon { position: relative; z-index: 1; }
-.game-label {
-  padding: 8px 10px; font-family: 'DM Sans', sans-serif; font-size: 12px;
-  color: rgba(255,220,240,0.85); text-align: center; letter-spacing: 0.2px;
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-  background: rgba(10,0,15,0.6);
+.game-thumb::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(0,0,0,0.28));
+  pointer-events: none;
 }
-.game-info { padding: 14px 16px 16px; flex: 1; display: flex; flex-direction: column; gap: 6px; }
-.game-name { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 300; color: #fff; }
-.game-desc { font-family: 'DM Sans', sans-serif; font-size: 12px; color: rgba(255,200,240,0.45); line-height: 1.5; }
+.game-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; transition: filter 0.35s ease, transform 0.35s ease, opacity 0.35s ease; }
+.game-thumb img.skeleton { filter: blur(12px); opacity: 0.45; transform: scale(1.06); }
+.game-label {
+  font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 300;
+  color: #fff; text-align: left; line-height: 1.1;
+}
+.game-info { padding: 18px 16px 18px; display: flex; flex-direction: column; gap: 10px; }
 .game-tag {
-  display: inline-block; font-family: 'DM Sans', sans-serif; font-size: 10px; letter-spacing: 0.8px;
-  color: rgba(255,140,210,0.55); border: 0.5px solid rgba(255,140,210,0.2);
-  padding: 2px 8px; border-radius: 20px; align-self: flex-start; margin-top: 2px;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-family: 'DM Sans', sans-serif; font-size: 10px; letter-spacing: 0.7px;
+  color: rgba(255,190,245,0.78); border: 0.5px solid rgba(255,140,210,0.18);
+  padding: 5px 10px; border-radius: 999px; width: fit-content;
 }
 .game-play-btn {
   margin: 0 16px 16px; padding: 9px;
@@ -564,24 +602,28 @@ canvas { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
 /* ── BOTTOM NAV BAR ── */
 .bottom-nav {
   position: fixed; bottom: 18px; left: 50%; transform: translateX(-50%);
-  display: flex; align-items: center; gap: 2px;
-  background: var(--nav-bg); backdrop-filter: blur(24px);
-  border: 1px solid rgba(255,255,255,0.12);
-  border-radius: 24px; padding: 6px 10px;
-  z-index: 100; opacity: var(--ui-opacity);
-  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  width: min(820px, calc(100vw - 24px)); padding: 12px;
+  background: rgba(9,4,22,0.88); backdrop-filter: blur(32px);
+  border: 1px solid rgba(255,140,210,0.18);
+  border-radius: 999px; z-index: 100; opacity: var(--ui-opacity);
+  box-shadow: 0 22px 90px rgba(0,0,0,0.32);
 }
 .bnav-btn {
-  display: flex; flex-direction: column; align-items: center; gap: 3px;
-  padding: 8px 14px; border-radius: 12px; border: none; background: none;
-  color: rgba(255,255,255,0.5); cursor: pointer;
-  transition: color 0.2s, background 0.2s; font-family: 'DM Sans', sans-serif;
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+  flex: 1; min-width: 0; padding: 12px 14px; border-radius: 999px;
+  border: 1px solid transparent; background: rgba(255,255,255,0.04);
+  color: rgba(255,255,255,0.7); cursor: pointer; transition: all 0.22s ease;
+  font-family: 'DM Sans', sans-serif;
 }
 .bnav-btn i { font-size: 18px; }
-.bnav-btn span { font-size: 9px; letter-spacing: 0.5px; }
-.bnav-btn:hover { color: rgba(255,255,255,0.85); background: rgba(255,255,255,0.08); }
-.bnav-btn.active { color: #fff; background: rgba(255,255,255,0.15); }
-.bnav-divider { width: 1px; height: 28px; background: rgba(255,140,210,0.1); margin: 0 4px; }
+.bnav-btn span { font-size: 10px; letter-spacing: 0.6px; }
+.bnav-btn:hover { color: #fff; background: rgba(255,255,255,0.12); }
+.bnav-btn.active {
+  color: #fff; background: linear-gradient(135deg, #ff5ec8, #9e48ff);
+  border-color: rgba(255,255,255,0.22); box-shadow: 0 12px 28px rgba(244,100,200,0.28);
+}
+.bnav-divider { display: none; }
 
 /* ── SEARCH PAGE ── */
 #page-search { z-index: 10; justify-content: flex-start; overflow-y: auto; padding: 80px 20px 100px; }
@@ -1002,7 +1044,13 @@ canvas { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
     <div class="home-clock" id="home-clock"></div>
     <img src="https://i.imgur.com/solstized-logo.png" alt="solstized." style="width:min(420px,80vw);margin-bottom:8px;" onerror="this.style.display='none';document.getElementById('home-title-text').style.display='block'">
     <div class="site-title" id="home-title-text" style="display:none;">solstized.</div>
-    <div class="meme-msg" id="meme-msg"></div>
+  <div class="proxy-bar-wrap" style="margin-top:24px; max-width:620px; width:90%;">
+    <i class="ti ti-search proxy-search-icon"></i>
+    <input class="proxy-input" id="home-proxy-input" type="text" placeholder="safe.com" onkeydown="if(event.key==='Enter') proxyGoHome()">
+    <button class="proxy-go-btn" onclick="proxyGoHome()">Search</button>
+  </div>
+  <p style="margin-top:18px; color: rgba(255,255,255,0.72); font-size: 0.95rem;"><a href="/games/index.html" style="color: #f4b8de; text-decoration: underline;">Open the full games hub</a></p>
+  <div class="meme-msg" id="meme-msg"></div>
   </div>
 </div>
 
@@ -1038,12 +1086,10 @@ canvas { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
     all games
     <span id="games-count-label">loading games...</span>
   </div>
-  <div style="position:relative;z-index:20;background:rgba(255,160,50,0.1);border:1px solid rgba(255,160,50,0.3);border-radius:10px;padding:8px 18px;font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(255,200,120,0.85);letter-spacing:0.5px;margin-bottom:16px;">
-    🔧 most games are lwk broken rn — ones that don't load hit "new tab" in the top right
-  </div>
   <div class="games-search-wrap">
     <i class="ti ti-search games-search-icon"></i>
-    <input class="games-search" id="games-search" type="text" placeholder="search games..." oninput="filterGames(this.value)">
+    <input class="games-search" id="games-search" type="text" placeholder="search games..." oninput="filterGames(this.value)" onkeydown="if(event.key==='Enter') filterGames(this.value)">
+    <button class="games-search-btn" onclick="filterGames(document.getElementById('games-search').value)">Search</button>
   </div>
   <div class="recent-wrap" id="recent-wrap" style="display:none;">
     <div class="recent-label">recently played</div>
@@ -1179,12 +1225,12 @@ canvas { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
       <div class="ai-empty" id="ai-empty">
         <i class="ti ti-robot"></i>
         <div class="ai-empty-title">sol AI</div>
-        <div class="ai-empty-sub">ask me anything</div>
+        <div class="ai-empty-sub">homework, essays, math, or school help — ask anything</div>
         <div class="ai-suggestions">
-          <div class="ai-suggestion" onclick="aiSend('What games are on this site?')">what games are on this site?</div>
-          <div class="ai-suggestion" onclick="aiSend('How do I change the background?')">how do I change the background?</div>
-          <div class="ai-suggestion" onclick="aiSend('Tell me a fun fact')">tell me a fun fact</div>
-          <div class="ai-suggestion" onclick="aiSend('What is 2 + 2?')">what is 2 + 2?</div>
+          <div class="ai-suggestion" onclick="aiSend('Write a short essay about climate change')">write a short essay about climate change</div>
+          <div class="ai-suggestion" onclick="aiSend('Explain photosynthesis in simple terms')">explain photosynthesis in simple terms</div>
+          <div class="ai-suggestion" onclick="aiSend('Summarize the water cycle')">summarize the water cycle</div>
+          <div class="ai-suggestion" onclick="aiSend('Solve 2x + 5 = 11 step by step')">solve 2x + 5 = 11 step by step</div>
         </div>
       </div>
     </div>
@@ -1202,22 +1248,8 @@ canvas { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
     apps
     <span>open anything, right here</span>
   </div>
-  <div style="position:relative;z-index:20;background:rgba(255,80,80,0.1);border:1px solid rgba(255,100,100,0.3);border-radius:10px;padding:8px 18px;font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(255,160,160,0.8);letter-spacing:1px;margin-bottom:12px;">
-    ⚠️ broken — most apps block iframes
-  </div>
-  <div class="apps-search-wrap">
-    <i class="ti ti-search apps-search-icon"></i>
-    <input class="apps-search" id="apps-search" type="text" placeholder="search apps..." oninput="filterApps(this.value)">
-  </div>
-  <div class="proxy-bar-wrap">
-    <div class="proxy-bar-label"><i class="ti ti-shield-lock"></i> &nbsp;proxy — go to any site unblocked</div>
-    <div class="proxy-bar-row">
-      <input class="proxy-input" id="proxy-input" type="text" placeholder="youtube.com, tiktok.com, anything..." onkeydown="if(event.key==='Enter')proxyGo()">
-      <button class="proxy-go-btn" onclick="proxyGo()"><i class="ti ti-arrow-right"></i> go</button>
-    </div>
-  </div>
   <div class="apps-grid" id="apps-grid"></div>
-  <div class="apps-no-results" id="apps-no-results" style="display:none;">no apps found 🌸</div>
+  <div class="apps-no-results" id="apps-no-results" style="display:none;">No apps found.</div>
 </div>
 
 <!-- ══ CHAT ══ -->
@@ -1626,9 +1658,14 @@ function applyTheme(name) {
     bgEl.style.backgroundPosition = 'center';
     bgEl.style.background = '';
   }
-  planets[0].color1=t.p1; planets[0].color2=t.p1b;
-  planets[1].color1=t.p2; planets[1].color2=t.p2b;
-  planets[2].color1=t.p3; planets[2].color2=t.p3b;
+  if (typeof planets !== 'undefined' && planets && planets.length >= 3) {
+    planets[0].color1 = t.p1; planets[0].color2 = t.p1b;
+    planets[1].color1 = t.p2; planets[1].color2 = t.p2b;
+    planets[2].color1 = t.p3; planets[2].color2 = t.p3b;
+  } else {
+    // planets not ready yet — store pending theme to apply after init
+    window.__pendingTheme = t;
+  }
   if (document.getElementById('theme-select').value === name) saveData();
 }
 
@@ -1797,14 +1834,14 @@ const memes = [
   "securly admins suck 😭",
   "lightspeed admins are godly 🙏",
   "bark bark bark 🐕",
-  "i am NOT going to class 🚫",
+  "67",
   "goguardian jumpscare arc 😨",
   "chromebook go brr 💻",
   "who gave IT admin the power 😤",
-  "unblocked games at school szn 🎮",
-  "cisco umbrella ur so annoying 🌂",
+  "goated proxy 🎮",
+  "cisco umbrella so buns 🌂",
   "bro thought he could block cool math games 💀",
-  "free at last (until monday) 😇",
+  "chat, we're finished😇",
 ];
 let memeIdx = Math.floor(Math.random()*memes.length);
 function rotateMeme() {
@@ -1827,6 +1864,10 @@ function goTo(id) {
   document.querySelectorAll('.bnav-btn').forEach(b => b.classList.remove('active'));
   const nb = document.getElementById('bnav-'+id);
   if (nb) nb.classList.add('active');
+  // populate dynamic content for certain pages
+  if (id === 'apps') {
+    try { buildAppsGrid(APPS); document.getElementById('apps-no-results').style.display = 'none'; } catch(e) {}
+  }
 }
 function navProfile() {
   if(currentUser) { goTo('profile'); }
@@ -2006,7 +2047,7 @@ const GAMES = [
   { id: 'pokemon-emerald',name: 'Pokémon Emerald',      tag: 'rpg',         icon: 'ti-star',           url: G+'pokemonemerald/index.html' },
   { id: 'doom',           name: 'Doom',                 tag: 'shooter',     icon: 'ti-crosshair',      url: G+'doom/index.html' },
   { id: 'doom2',          name: 'Doom 2',               tag: 'shooter',     icon: 'ti-crosshair',      url: G+'doom2/index.html' },
-  { id: 'superhot',       name: 'Superhot',             tag: 'shooter',     icon: 'ti-flame',          url: G+'superhot/index.html' },
+  { id: 'superhot',       name: 'Superhot',             tag: 'shooter',     icon: 'ti-flame',          url: G+'superhot/index.html' }
 ];
 
 let activeGameUrl = '';
@@ -2098,15 +2139,22 @@ function buildGamesGrid(list) {
     card.className = 'game-card';
     card.setAttribute('data-id', g.id);
     card.onclick = () => openGame(g);
-    const colors = GAME_COLORS[g.tag] || ['#c44fa0', '#7a1a55'];
     const thumb = GAME_THUMBS[g.id];
     const thumbContent = thumb
-      ? `<img src="${thumb}" alt="${g.name}" style="width:100%;height:100%;object-fit:cover;display:block;" onerror="this.src='https://i.imgur.com/4XYTwrP.png';this.style.objectFit='cover';">`
-      : `<img src="https://i.imgur.com/4XYTwrP.png" alt="${g.name}" style="width:100%;height:100%;object-fit:cover;display:block;">`;
+      ? `<img class="game-thumb-img skeleton" loading="lazy" decoding="async" src="${thumb}" alt="${g.name}" onerror="this.src='https://i.imgur.com/4XYTwrP.png';this.style.objectFit='cover';">`
+      : `<img class="game-thumb-img skeleton" loading="lazy" decoding="async" src="https://i.imgur.com/4XYTwrP.png" alt="${g.name}">`;
     card.innerHTML = `
       <div class="game-thumb">${thumbContent}</div>
-      <div class="game-label">${g.name}</div>
+      <div class="game-info">
+        <div class="game-label">${g.name}</div>
+        <div class="game-tag">${g.tag}</div>
+      </div>
     `;
+    const img = card.querySelector('img');
+    if (img) {
+      img.addEventListener('load', () => img.classList.remove('skeleton'));
+      img.addEventListener('error', () => img.classList.remove('skeleton'));
+    }
     grid.appendChild(card);
   });
   document.getElementById('games-count-label').textContent = `${list.length} game${list.length !== 1 ? 's' : ''} available`;
@@ -2170,40 +2218,27 @@ buildGamesGrid(GAMES);
 
 /* ── APPS ── */
 const APPS = [
-  { name: 'Music Player', url: '__music__', icon: '', fallback: 'ti-music',   newTab: false, special: 'music' },
-  { name: 'HTML Coder',   url: '__coder__', icon: '', fallback: 'ti-code',    newTab: false, special: 'coder' },
-  { name: 'solAI',        url: '__ai__',  icon: '', fallback: 'ti-robot', newTab: false, special: 'ai' },
-  { name: 'ChatGPT',      url: 'https://chat.openai.com', icon: 'https://chat.openai.com/favicon.ico', fallback: 'ti-robot', newTab: true },
-  { name: 'Gemini',       url: 'https://gemini.google.com', icon: 'https://www.gstatic.com/lamda/images/gemini_favicon_f069958c85030456e93de685481c559f160ea06.svg', fallback: 'ti-sparkles', newTab: true },
-  { name: 'Copilot',      url: 'https://copilot.microsoft.com', icon: 'https://copilot.microsoft.com/favicon.ico', fallback: 'ti-brand-windows', newTab: true },
-  { name: 'YouTube',        url: 'https://www.youtube.com',          icon: 'https://www.youtube.com/favicon.ico',            fallback: 'ti-brand-youtube',   newTab: true },
-  { name: 'Discord',        url: 'https://discord.com/app',          icon: 'https://discord.com/assets/favicon.ico',         fallback: 'ti-brand-discord',   newTab: true },
-  { name: 'TikTok',         url: 'https://www.tiktok.com',           icon: 'https://www.tiktok.com/favicon.ico',             fallback: 'ti-brand-tiktok',    newTab: true },
-  { name: 'Twitch',         url: 'https://www.twitch.tv',            icon: 'https://static.twitchsvc.net/assets/uploads/glitch_474x356.png', fallback: 'ti-brand-twitch', newTab: true },
-  { name: 'SoundCloud',     url: 'https://soundcloud.com',           icon: 'https://a-v2.sndcdn.com/assets/images/sc-icons/favicon-2cadd14b.ico', fallback: 'ti-brand-soundcloud', newTab: true },
-  { name: 'Spotify',        url: 'https://open.spotify.com',         icon: 'https://open.spotify.com/favicon.ico',           fallback: 'ti-brand-spotify',   newTab: true },
-  { name: 'GitHub',         url: 'https://github.com',               icon: 'https://github.com/favicon.ico',                 fallback: 'ti-brand-github',    newTab: true },
-  { name: 'X / Twitter',    url: 'https://x.com',                    icon: 'https://abs.twimg.com/favicons/twitter.3.ico',    fallback: 'ti-brand-x',         newTab: true },
-  { name: 'Reddit',         url: 'https://www.reddit.com',           icon: 'https://www.reddit.com/favicon.ico',             fallback: 'ti-brand-reddit',    newTab: true },
-  { name: 'Instagram',      url: 'https://www.instagram.com',        icon: 'https://www.instagram.com/favicon.ico',          fallback: 'ti-brand-instagram', newTab: true },
-  { name: 'Google',         url: 'https://www.google.com',           icon: 'https://www.google.com/favicon.ico',             fallback: 'ti-brand-google',    newTab: false },
-  { name: 'Gmail',          url: 'https://mail.google.com',          icon: 'https://ssl.gstatic.com/ui/v1/icons/mail/rfr/gmail.ico', fallback: 'ti-mail',    newTab: true },
-  { name: 'Google Drive',   url: 'https://drive.google.com',         icon: 'https://ssl.gstatic.com/images/branding/product/1x/drive_2020q4_32dp.png', fallback: 'ti-brand-google-drive', newTab: true },
-  { name: 'Google Docs',    url: 'https://docs.google.com',          icon: 'https://ssl.gstatic.com/docs/documents/images/kix-favicon7.ico', fallback: 'ti-file-text', newTab: true },
-  { name: 'Google Classroom', url: 'https://classroom.google.com',   icon: 'https://ssl.gstatic.com/classroom/favicon.png',  fallback: 'ti-school',          newTab: true },
-  { name: 'Khan Academy',   url: 'https://www.khanacademy.org',      icon: 'https://www.khanacademy.org/favicon.ico',         fallback: 'ti-book',            newTab: true },
-  { name: 'Quizlet',        url: 'https://quizlet.com',              icon: 'https://quizlet.com/favicon.ico',                fallback: 'ti-cards',           newTab: true },
-  { name: 'Chess.com',      url: 'https://www.chess.com',            icon: 'https://www.chess.com/favicon.ico',              fallback: 'ti-chess',           newTab: true },
-  { name: 'Cool Math Games',url: 'https://www.coolmathgames.com',    icon: 'https://www.coolmathgames.com/favicon.ico',       fallback: 'ti-math',            newTab: false },
-  { name: 'Y8 Games',       url: 'https://www.y8.com',               icon: 'https://img.y8.com/assets/favicon/favicon-32x32.png', fallback: 'ti-device-gamepad-2', newTab: false },
-  { name: 'HiAnime',        url: 'https://hianime.to',               icon: 'https://hianime.to/favicon.ico',                 fallback: 'ti-movie',           newTab: true },
-  { name: 'Crunchyroll',    url: 'https://www.crunchyroll.com',      icon: 'https://www.crunchyroll.com/favicon.ico',         fallback: 'ti-player-play',     newTab: true },
-  { name: 'Movie Web',      url: 'https://movie-web.app',            icon: 'https://movie-web.app/favicon.ico',              fallback: 'ti-movie',           newTab: true },
-  { name: 'ESPN',           url: 'https://www.espn.com',             icon: 'https://a.espncdn.com/favicon.ico',              fallback: 'ti-ball-football',   newTab: true },
-  { name: 'Duolingo',       url: 'https://www.duolingo.com',         icon: 'https://www.duolingo.com/favicon.ico',           fallback: 'ti-language',        newTab: true },
-  { name: 'Wikipedia',      url: 'https://www.wikipedia.org',        icon: 'https://www.wikipedia.org/favicon.ico',          fallback: 'ti-world',           newTab: false },
-  { name: 'Scratch',        url: 'https://scratch.mit.edu',          icon: 'https://scratch.mit.edu/favicon.ico',            fallback: 'ti-code',            newTab: false },
-  { name: 'Replit',         url: 'https://replit.com',               icon: 'https://replit.com/favicon.ico',                 fallback: 'ti-terminal',        newTab: true },
+  { name: 'solAI', url: '__ai__', icon: '', fallback: 'ti-robot', newTab: false, special: 'ai' },
+  { name: 'HTML Coder', url: '__coder__', icon: '', fallback: 'ti-code', newTab: false, special: 'coder' },
+  { name: 'Music Player', url: '__music__', icon: '', fallback: 'ti-music', newTab: false, special: 'music' },
+
+  // Added apps from uploaded list
+  { name: 'Ruffle', url: '/apps/ruffle/index.html', icon: '/images/thumbnails/ruffle.jpg', fallback: 'ti-desktop', newTab: true },
+  { name: 'EmulatorJS', url: '/apps/emulatorjs/index.html', icon: '/images/thumbnails/emulatorjs.jpg', fallback: 'ti-desktop', newTab: true },
+  { name: 'WebGL Fluids', url: '/apps/fluidsim/index.html', icon: '/images/thumbnails/fluidsim.jpg', fallback: 'ti-image', newTab: true },
+  { name: 'Thirty Dollar Website', url: '/apps/thirtydollarwebsite/index.html', icon: '/images/thumbnails/thirtydollarwebsite.jpg', fallback: 'ti-layout-grid', newTab: true },
+  { name: 'Windows 11', url: '/apps/windows11/index.html', icon: '/images/thumbnails/windows11.jpg', fallback: 'ti-desktop', newTab: true },
+  { name: 'TurboWarp', url: '/apps/turbowarp/index.html', icon: '/images/thumbnails/turbowarp.jpg', fallback: 'ti-brand-scratch', newTab: true },
+  { name: 'TurboWarp Packager', url: '/apps/turbowarppkg/index.html', icon: '/images/thumbnails/turbowarppkg.jpg', fallback: 'ti-folder', newTab: true },
+  { name: 'TurboWarp Unpackager', url: '/apps/turbowarpunpkg/index.html', icon: '/images/thumbnails/turbowarpunpkg.jpg', fallback: 'ti-folder', newTab: true },
+  { name: 'WeaveSilk', url: '/apps/weavesilk/index.html', icon: '/images/thumbnails/weavesilk.jpg', fallback: 'ti-brush', newTab: true },
+  { name: 'WebRetro', url: '/apps/webretro/index.html', icon: '/images/thumbnails/webretro.jpg', fallback: 'ti-game', newTab: true },
+  { name: 'HTML Coder (local)', url: '/apps/htmlcoder/index.html', icon: '/images/thumbnails/htmleditor.jpg', fallback: 'ti-code', newTab: true },
+  { name: 'v86', url: '/apps/v86/index.html', icon: '/images/thumbnails/v86.jpg', fallback: 'ti-desktop', newTab: true },
+  { name: 'Calculator', url: '/apps/calculator/index.html', icon: '/images/thumbnails/calculator.jpg', fallback: 'ti-calculator', newTab: true },
+  { name: 'Etch A Sketch', url: '/apps/etchasketch/index.html', icon: '/images/thumbnails/etchasketch.jpg', fallback: 'ti-brush', newTab: true },
+  { name: 'Zip Opener', url: '/apps/zipopener/index.html', icon: '/images/thumbnails/zipopener.jpg', fallback: 'ti-zip', newTab: true },
+  { name: 'GodoBlocks', url: '/apps/godoblocks/index.html', icon: '/images/thumbnails/godoblocks.jpg', fallback: 'ti-cube', newTab: true }
 ];
 
 const UV_PROXY_PREFIX = '/service/';
@@ -2221,8 +2256,13 @@ function proxyUrl(url) { return uvEncode(url); }
 function proxyGo() {
   let val = document.getElementById('proxy-input').value.trim();
   if (!val) return;
-  const proxyTarget = proxyUrl(val);
-  window.open(proxyTarget, '_blank', 'noopener');
+  ultraviolet.openUrl(val);
+}
+
+function proxyGoHome() {
+  let val = document.getElementById('home-proxy-input').value.trim();
+  if (!val) return;
+  ultraviolet.openUrl(val);
 }
 
 function buildAppsGrid(list) {
@@ -2278,6 +2318,10 @@ function openApp(a) {
   if (a.special === 'music') { goTo('music'); return; }
   if (a.special === 'coder') { goTo('coder'); return; }
   if (a.special === 'ai')    { goTo('ai');    return; }
+  if (a.newTab) {
+    try { window.open(a.url, '_blank', 'noopener'); } catch(e) { console.warn('Failed to open new tab', e); }
+    return;
+  }
   activeGameUrl = a.url;
   showIframe();
   document.getElementById('game-modal-title').textContent = a.name;
@@ -2285,7 +2329,6 @@ function openApp(a) {
   document.getElementById('game-modal').classList.add('open');
 }
 
-buildAppsGrid(APPS);
 /* ── END APPS ── */
 
 /* ── CHAT ── */
@@ -2526,14 +2569,38 @@ function aiGetResponse(msg) {
   if (m.includes('theme') || m.includes('color') || m.includes('dark') || m.includes('style')) return pick(AI_RESPONSES.theme);
   // facts
   if (m.includes('fact') || m.includes('random') || m.includes('tell me')) return pick(AI_RESPONSES.facts);
+  // complex school help
+  if (m.includes('essay') || m.includes('homework') || m.includes('assignment') || m.includes('project') || m.includes('report') || m.includes('summarize') || m.includes('explain') || m.includes('solve') || m.includes('problem') || m.includes('calculate') || m.includes('write')) {
+    return aiComplexResponse(m);
+  }
   // what are you
-  if (m.includes('who are you') || m.includes('what are you') || m.includes('what is sol ai')) return 'i\'m sol AI, a built-in assistant for solstized. i\'m simple but i know everything about this site! 🤖';
+  if (m.includes('who are you') || m.includes('what are you') || m.includes('what is sol ai')) return 'i\'m sol AI, a built-in assistant for solstized. i can help you plan essays, explain hard school topics, and solve tricky homework problems. 🤖';
   // how are you
   if (m.includes('how are you') || m.includes('how r u')) return 'doing great, just vibing in the browser lol. how can i help? 😊';
   // thanks
   if (m.includes('thank') || m.includes('thx') || m.includes('ty')) return 'no problem! 🌸';
   // securly / goguardian
   if (m.includes('securly') || m.includes('goguardian') || m.includes('block')) return 'lol yeah they\'re annoying. try the tab cloak in settings to disguise the tab, or use the panic key to escape quickly. still working on a full proxy solution 😭';
+  return aiComplexResponse(m);
+}
+
+function aiComplexResponse(msg) {
+  if (/(essay|paragraph|write|report|story)/.test(msg)) {
+    return 'I can help write a strong school response. Start with an introduction that states the topic clearly, add 2–3 body paragraphs with evidence or examples, and finish with a conclusion that restates the main point. Tell me the exact subject and any rules, and I\'ll build a full draft for you.';
+  }
+
+  if (/(summarize|summary|summarise|shorten)/.test(msg)) {
+    return 'I can summarize your text or explain the main idea in simple terms. Paste the paragraph or tell me the topic, and I\'ll make a clear summary with the most important points.';
+  }
+
+  if (/(explain|what is|how does|why does|describe|define)/.test(msg)) {
+    return 'I can explain it step-by-step. Give me the topic or question, and I\'ll break it down into easy parts, define any hard words, and give an example so it\'s simple to understand.';
+  }
+
+  if (/(math|calculate|solve|equation|problem|answer)/.test(msg)) {
+    return 'I can solve math problems, explain formulas, and show each step. Type the question or equation and I\'ll walk you through it like a teacher.';
+  }
+
   return pick(AI_RESPONSES.default);
 }
 
@@ -3131,6 +3198,64 @@ window.addEventListener('mousemove',e=>{ mouseX=e.clientX; mouseY=e.clientY; });
 window.addEventListener('resize',()=>{ initStars(); initPlanets(); });
 initStars(); initPlanets();
 requestAnimationFrame(loop);
+// apply pending theme if set (guard against applyTheme running before planets init)
+if (window.__pendingTheme && typeof planets !== 'undefined' && planets.length >= 3) {
+  const tt = window.__pendingTheme;
+  planets[0].color1 = tt.p1; planets[0].color2 = tt.p1b;
+  planets[1].color1 = tt.p2; planets[1].color2 = tt.p2b;
+  planets[2].color1 = tt.p3; planets[2].color2 = tt.p3b;
+  window.__pendingTheme = null;
+}
+
+/* ── ENHANCEMENTS: lazy-load images, skeletons, Vanta background loader ── */
+(function(){
+  // lazy-load and skeleton helper
+  function applyLazy(img){
+    try{
+      if(!img) return;
+      if(!img.hasAttribute('loading')) img.setAttribute('loading','lazy');
+      img.setAttribute('decoding','async');
+      img.classList.add('skeleton');
+      if(img.complete && img.naturalWidth) img.classList.remove('skeleton');
+      img.addEventListener('load', ()=> img.classList.remove('skeleton'));
+      img.addEventListener('error', ()=> img.classList.remove('skeleton'));
+    }catch(e){}
+  }
+  document.querySelectorAll('img').forEach(applyLazy);
+  // observe future images
+  const mo = new MutationObserver(muts => {
+    muts.forEach(m => {
+      m.addedNodes && m.addedNodes.forEach(n => {
+        if(n.tagName === 'IMG') applyLazy(n);
+        else if(n.querySelectorAll) n.querySelectorAll('img').forEach(applyLazy);
+      });
+    });
+  });
+  mo.observe(document.body, { childList:true, subtree:true });
+
+  // dynamic script loader
+  function loadScript(src){
+    return new Promise((resolve, reject) => {
+      if(document.querySelector('script[src="'+src+'"]')) return resolve();
+      const s = document.createElement('script'); s.src = src; s.async = true;
+      s.onload = () => resolve(); s.onerror = () => reject(); document.head.appendChild(s);
+    });
+  }
+
+  // init Vanta fog if animations toggle enabled
+  try{
+    if (settingToggles && settingToggles.animations) {
+      // load three and vanta when idle
+      if ('requestIdleCallback' in window) requestIdleCallback(async ()=>{
+        try { await loadScript('https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js'); await loadScript('https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.fog.min.js');
+          if (window.VANTA && window.VANTA.FOG) {
+            try { window.VANTA_FOG_INSTANCE = window.VANTA.FOG({ el: '#bg-canvas', mouseControls:false, touchControls:false, gyroControls:false, minHeight: 200.00, minWidth: 200.00, highlightColor: 0xffddff, midtoneColor: 0xc44fa0, lowlightColor: 0x501436, baseColor: 0x0f0216, blurFactor: 0.35, speed: 0.6 }); }catch(e){}
+          }
+        }catch(e){}
+      });
+    }
+  }catch(e){}
+})();
 </script>
 </body>
 </html>
